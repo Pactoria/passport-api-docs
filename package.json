@@ -1,0 +1,13 @@
+{
+  "name": "passport-api-docs",
+  "version": "1.0.0",
+  "description": "Builds the docs into a single JSON file for release",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ."
+  },
+  "keywords": [],
+  "author": "Redstoneguy129",
+  "license": "ISC"
+}

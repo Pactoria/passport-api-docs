@@ -1,0 +1,71 @@
+# API Reference
+
+Pactoria's API is organised around two layers, a REST API for general use and a WebSocket API for real-time updates.
+
+###### Base URL
+
+```
+https://pactoria.net/api
+```
+
+## API Versioning
+
+<Alert type={"error"}>Some API and Gateway versions may be non-functioning. Trying to use Discontinued versions will fail and return a 400 Bad Request.</Alert>
+
+Pactoria exposes different versions of our API. Specify your desired version in the URL path like ``https://pactoria.net/api/v{version_number}``.
+Omitting the version number from the route will route requests to the latest version.
+
+###### API Versions
+
+| Version | Status    |
+|---------|-----------|
+| 1       | Available |
+
+## Authentication
+
+Authenticating with the Pactoria API can be done by using the application token found on the Application page within your app's settings.
+
+###### Example Application Token Authorization Header
+```
+Authorization: TOKEN
+```
+
+## Encryption
+
+All HTTP services and protocols (HTTP, WebSocket) are encrypted using TLS 1.2.
+
+## Nullable and Optional Resource Fields
+
+Resource fields that may contain a ``null`` value have types that are prefixed with a question mark. Resource fields that are optional have names that are suffixed with a question mark.
+
+###### Example Nullable and Optional Fields
+| Field                        | Type    |
+|------------------------------|---------|
+| optional_field?              | string  |
+| nullable_field               | ?string |
+| optional_and_nullable_field? | ?string |
+
+## HTTP API
+
+### User Agent
+
+Clients using the HTTP API should provide a valid [User Agent](https://www.rfc-editor.org/rfc/rfc9110.html#section-10.1.5) which specifies information about the client library and version in the following format:
+
+###### User Agent Example
+```
+User-Agent: PactoriaBot ($url, $version)
+```
+
+<Alert type={"warn"}>Client requests that do not have a valid User Agent specified may be blocked and return a [Cloudflare Error](https://support.cloudflare.com/hc/en-us/articles/360029779472-Troubleshooting-Cloudflare-1XXX-errors).</Alert>
+
+### Rate Limiting
+
+The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly exceed the rate limit will have their token revoked.
+For more information on rate limiting requests, please see the [Rate Limits](/docs/topics/rate-limits) section.
+
+If you feel that your application requires a higher rate limit, you can buy a rate limit increase from the [Pactoria Store](https://store.pactoria.net/) for $10/m.
+
+## Gateway (Websocket) API
+
+Pactoria's Gateway API is used for persistent, stateful connections between the server and client. The connections are used for receiving real-time events your client can use to track and update locally.
+The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455).
